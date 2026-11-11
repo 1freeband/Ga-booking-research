@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Georgia Statewide Pretrial Diversion — Collateral Assessment Review portal. Program information, fee schedule, orientation documents, and secure invoice payment.">
+<title>Georgia Statewide Pretrial Diversion - Collateral Assessment Review</title>
+
+<!-- Typography: Merriweather (serif headings) + Source Sans 3 (body), matching the original build -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+  /* ==================================================================
+     Georgia Statewide Pretrial Diversion — Landing Page
+     Rebuilt in clean HTML/CSS/JS from the original React/Vite design.
+     NOTE: "DCS Pretrial Diversion Program" is an original, fictional
+     demonstration agency — see the disclaimer banner and footer notice.
+     ================================================================== */
+
+  :root {
+    --navy-900: #060D1A;
+    --navy-800: #0A1628;
+    --navy-700: #10233F;
+    --navy-600: #1B3459;
+    --teal: #0E8F8A;
+    --teal-dark: #0B6E6A;
+    --gold: #C9A227;
+    --gold-light: #E9C878;
+    --gold-deep: #9A7B1A;
+    --paper: #FFFFFF;
+    --paper-off: #F4F6F9;
+    --text: #1A2233;
+    --muted: #5F6B7A;
+    --line: #E2E7EE;
+    --radius: 14px;
+    --shadow-lg: 0 24px 60px -18px rgba(6, 13, 26, 0.55);
+    --shadow-sm: 0 2px 10px rgba(6, 13, 26, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--paper-off);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .serif { font-family: 'Merriweather', Georgia, serif; }
+  img { max-width: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Demo disclaimer bar ---------- */
+  .demo-bar {
+    background: #3D2E06;
+    color: #F5E7C0;
+    font-size: 0.82rem;
+    padding: 9px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.45;
+  }
+  .demo-bar i { color: var(--gold-light); margin-top: 2px; }
+
+  /* ---------- Payment-hold notice bar ---------- */
+  .notice-bar {
+    background: linear-gradient(90deg, var(--navy-700), var(--navy-600));
+    color: #EAF0FA;
+    font-size: 0.9rem;
+    padding: 11px 20px;
+    position: relative;
+    text-align: center;
+  }
+  .notice-bar strong { color: var(--gold-light); }
+  .notice-bar a { color: #fff; font-weight: 600; text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,0.5); }
+  .notice-bar .bell { color: var(--gold-light); margin-right: 8px; }
+  .notice-close {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: #9FB2CE; font-size: 1.05rem; cursor: pointer;
+  }
+  .notice-close:hover { color: #fff; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    background: rgba(10, 22, 40, 0.96);
+    border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(6px);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding-top: 14px; padding-bottom: 14px;
+  }
+  .brand { display: flex; align-items: center; gap: 13px; text-decoration: none; }
+  .brand-badge {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: radial-gradient(circle at 30% 30%, var(--navy-600), var(--navy-800));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-light); font-size: 1.05rem; flex-shrink: 0;
+  }
+  .brand-name { color: #fff; font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.02rem; line-height: 1.25; }
+  .brand-sub { color: #93A5C4; font-size: 0.78rem; letter-spacing: 0.2px; }
+  .header-actions { display: flex; gap: 10px; }
+  .ghost-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,255,255,0.28); color: #E7EDF7;
+    background: rgba(255,255,255,0.05);
+    padding: 8px 16px; border-radius: 8px; font-size: 0.86rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: all .18s ease;
+  }
+  .ghost-btn:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(27, 52, 89, 0.9), transparent 70%),
+      linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    padding: 84px 20px 120px;
+  }
+  /* subtle circuit pattern */
+  .hero::before {
+    content: ""; position: absolute; inset: 0; opacity: 0.10; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 39px, rgba(120,160,220,0.35) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, rgba(120,160,220,0.35) 39px 40px);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .hero-scales {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 620px; max-width: 92vw; opacity: 0.16; pointer-events: none;
+    color: var(--gold-light);
+  }
+  .hero-map {
+    position: absolute; right: 4%; top: 14%; width: 220px; opacity: 0.22;
+    pointer-events: none; color: #7FA0D8;
+  }
+  .hero-inner { position: relative; z-index: 2; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 3.5px;
+    color: var(--gold-light);
+    border-left: 2px solid var(--gold); border-right: 2px solid var(--gold);
+    padding: 4px 18px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 4.4vw, 3rem);
+    font-weight: 900; line-height: 1.15; margin-bottom: 14px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .hero .lede { font-size: 1.12rem; color: #C4D2E8; font-weight: 400; margin-bottom: 26px; }
+  .statute-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .chip {
+    font-size: 0.84rem; font-weight: 600; letter-spacing: 0.3px;
+    color: var(--gold-light);
+    border: 1px solid rgba(201,162,39,0.55);
+    background: rgba(201,162,39,0.10);
+    border-radius: 999px; padding: 6px 16px;
+  }
+  .chip.teal {
+    color: #BFE9E6; border-color: rgba(14,143,138,0.6); background: rgba(14,143,138,0.16);
+  }
+
+  /* ---------- Progress tracker ---------- */
+  .tracker {
+    background: var(--navy-900);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 34px 20px 40px;
+    color: #fff;
+  }
+  .tracker .wrap { max-width: 860px; }
+  .tracker-labels {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.92rem; margin-bottom: 14px;
+  }
+  .tracker-labels .step-name { color: #BFE9E6; font-weight: 600; }
+  .tracker-labels .pct { color: #8FA3C2; }
+  .tracker-bar { position: relative; height: 4px; background: rgba(255,255,255,0.14); border-radius: 4px; }
+  .tracker-fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 20%;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    border-radius: 4px;
+  }
+  .tracker-dots { display: flex; justify-content: space-between; margin-top: -7px; position: relative; }
+  .dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--navy-700); border: 2px solid rgba(255,255,255,0.35);
+  }
+  .dot.done { background: var(--gold); border-color: var(--gold-light); }
+  .dot.active { background: #fff; border-color: var(--gold-light); box-shadow: 0 0 0 5px rgba(233,200,120,0.18); }
+  .tracker-steps { display: flex; justify-content: space-between; margin-top: 14px; }
+  .tracker-steps span {
+    font-size: 0.72rem; color: #7E92B4; text-align: center; width: 20%;
+    letter-spacing: 0.2px;
+  }
+  .tracker-steps span.active { color: var(--gold-light); font-weight: 600; }
+
+  /* ---------- Program overview card ---------- */
+  .overview { margin-top: -58px; position: relative; z-index: 3; padding-bottom: 20px; }
+  .overview-card {
+    background: var(--paper);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .overview-head {
+    background: linear-gradient(120deg, var(--teal-dark), var(--teal));
+    color: #fff; padding: 26px 32px;
+  }
+  .overview-head h2 { font-size: 1.28rem; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+  .overview-head h2 i { color: #CFF3F1; }
+  .overview-head p { color: #D8F2F0; font-size: 0.92rem; margin-top: 6px; }
+  .overview-head .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .overview-body { padding: 30px 32px 34px; }
+  .overview-body p { color: #33405A; font-size: 1.02rem; margin-bottom: 16px; }
+  .overview-body strong { color: var(--navy-700); }
+  .overview-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 24px; border-radius: 10px;
+    font-weight: 700; font-size: 0.95rem; text-decoration: none;
+    transition: all .18s ease; cursor: pointer; border: none;
+  }
+  .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: #fff; box-shadow: 0 8px 20px -8px rgba(154,123,26,0.6); }
+  .btn-gold:hover { transform: translateY(-2px); }
+  .btn-outline { border: 1.5px solid var(--navy-600); color: var(--navy-700); background: #fff; }
+  .btn-outline:hover { background: var(--navy-700); color: #fff; }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 64px 0 8px; }
+  .section-eyebrow {
+    text-align: center; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 3px; color: var(--teal-dark); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-title { text-align: center; font-size: 1.7rem; font-weight: 700; color: var(--navy-800); margin-bottom: 12px; }
+  .section-sub { text-align: center; color: var(--muted); max-width: 640px; margin: 0 auto 40px; font-size: 1rem; }
+
+  /* Steps grid */
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .step-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 20px; box-shadow: var(--shadow-sm);
+    position: relative; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .step-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -14px rgba(6,13,26,0.28); }
+  .step-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--navy-700); color: var(--gold-light);
+    font-family: 'Merriweather', serif; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; font-size: 0.95rem;
+  }
+  .step-card h3 { font-size: 1rem; color: var(--navy-800); margin-bottom: 8px; }
+  .step-card p { font-size: 0.88rem; color: var(--muted); }
+
+  /* Fee schedule */
+  .fee-panel {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+  }
+  .fee-panel table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+  .fee-panel th {
+    text-align: left; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--muted); padding: 14px 22px; background: var(--paper-off);
+    border-bottom: 1px solid var(--line);
+  }
+  .fee-panel th.num, .fee-panel td.num { text-align: right; }
+  .fee-panel td { padding: 15px 22px; border-bottom: 1px solid var(--line); color: #33405A; }
+  .fee-panel tr:last-child td { border-bottom: none; }
+  .fee-panel td .fee-sub { display: block; font-size: 0.8rem; color: var(--muted); }
+  .fee-panel td.amount { font-weight: 700; color: var(--navy-800); white-space: nowrap; }
+  .fee-note { padding: 14px 22px; font-size: 0.82rem; color: var(--muted); background: #FFFDF5; border-top: 1px dashed #EADFA8; }
+  .fee-note i { color: var(--gold); margin-right: 6px; }
+
+  /* FAQ */
+  .faq-list { max-width: 780px; margin: 0 auto; }
+  .faq-item { background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+    padding: 18px 22px; font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--navy-800);
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  }
+  .faq-q i { color: var(--gold); transition: transform .2s ease; }
+  .faq-item.open .faq-q i { transform: rotate(180deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+  .faq-a-inner { padding: 0 22px 18px; color: var(--muted); font-size: 0.94rem; }
+
+  /* Docs */
+  .docs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .doc-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 24px; text-decoration: none; display: block; box-shadow: var(--shadow-sm);
+    transition: all .18s ease;
+  }
+  .doc-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .doc-card .doc-icon {
+    width: 42px; height: 42px; border-radius: 10px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(14,143,138,0.12); color: var(--teal-dark); font-size: 1.05rem;
+  }
+  .doc-card h3 { font-size: 1rem; color: var(--navy-800); margin-bottom: 6px; }
+  .doc-card p { font-size: 0.86rem; color: var(--muted); }
+  .doc-card .doc-link { display: inline-block; margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: var(--teal-dark); }
+
+  /* Contact band */
+  .contact-band {
+    margin-top: 72px;
+    background: linear-gradient(120deg, var(--navy-800), var(--navy-700));
+    color: #fff; padding: 46px 0;
+    border-top: 3px solid var(--gold);
+  }
+  .contact-band .wrap { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; align-items: center; }
+  .contact-band h2 { font-size: 1.4rem; margin-bottom: 8px; }
+  .contact-band p { color: #AFC0DC; font-size: 0.95rem; max-width: 480px; }
+  .contact-methods { display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem; }
+  .contact-methods i { color: var(--gold-light); width: 20px; }
+  .contact-methods a { color: #fff; text-decoration: none; }
+  .contact-methods a:hover { color: var(--gold-light); }
+
+  /* Footer */
+  footer.site-footer { background: var(--navy-900); color: #7E92B4; font-size: 0.82rem; padding: 34px 0 42px; }
+  footer.site-footer .wrap { display: grid; gap: 14px; }
+  footer.site-footer .legal {
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    padding: 14px 18px; line-height: 1.55; color: #8FA3C2;
+  }
+  footer.site-footer .legal strong { color: var(--gold-light); }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+  .footer-links a { color: #AFC0DC; text-decoration: none; }
+  .footer-links a:hover { color: var(--gold-light); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 60px 16px 100px; }
+    .hero-map { display: none; }
+    .tracker-steps span { font-size: 0.62rem; }
+    .overview-head, .overview-body { padding-left: 22px; padding-right: 22px; }
+  }
+
+  @media print {
+    .demo-bar, .notice-bar, .site-header, .overview-cta, .contact-band, .tracker { display: none !important; }
+    .hero { background: #fff; color: #000; padding: 20px; }
+    .hero h1, .hero .lede { color: #000; text-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Demo disclaimer -->
+<div class="demo-bar" role="note">
+  <i class="fas fa-circle-info"></i>
+  <span><strong>Demonstration Portal</strong> — “Georgia Statewide Pretrial Diversion” / “DCS Pretrial Diversion Program” is an original, fictional agency created for this template. It is not a real court or government office, and no payment here satisfies an actual legal obligation.</span>
+</div>
+
+<!-- Payment hold notice -->
+<div class="notice-bar" id="noticeBar">
+  <i class="fas fa-bell bell"></i>
+  <strong>Payment Hold Notice:</strong> Funds remain pending — not deducted — until orientation is complete.
+  <a href="invoice.html">View Fee Invoice</a>
+  <button class="notice-close" aria-label="Dismiss notice" onclick="document.getElementById('noticeBar').style.display='none'">&times;</button>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-badge"><i class="fas fa-scale-balanced"></i></span>
+      <span>
+        <span class="brand-name">Georgia Statewide Pretrial Diversion</span><br>
+        <span class="brand-sub">Dept. of Community Supervision — Collateral Assessment Review</span>
+      </span>
+    </a>
+    <nav class="header-actions">
+      <a class="ghost-btn" href="#faq"><i class="far fa-circle-question"></i> FAQ</a>
+      <a class="ghost-btn" href="#docs"><i class="far fa-file-lines"></i> Docs</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <!-- Decorative scales of justice (inline SVG replaces the original hero photo) -->
+  <svg class="hero-scales" viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+    <line x1="200" y1="20" x2="200" y2="240"/>
+    <line x1="60" y1="70" x2="340" y2="70"/>
+    <circle cx="200" cy="20" r="10"/>
+    <line x1="60" y1="70" x2="30" y2="150"/>
+    <line x1="60" y1="70" x2="90" y2="150"/>
+    <path d="M15 150 Q60 205 105 150"/>
+    <line x1="340" y1="70" x2="310" y2="150"/>
+    <line x1="340" y1="70" x2="370" y2="150"/>
+    <path d="M295 150 Q340 205 385 150"/>
+    <line x1="150" y1="270" x2="250" y2="270"/>
+    <line x1="170" y1="250" x2="230" y2="250"/>
+    <line x1="200" y1="240" x2="200" y2="250"/>
+  </svg>
+  <!-- Simplified Georgia state outline -->
+  <svg class="hero-map" viewBox="0 0 100 110" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <path d="M20 5 L78 5 L80 25 L72 45 L78 60 L85 80 L75 100 L60 105 L30 102 L25 80 L18 60 L22 40 L18 20 Z"/>
+    <circle cx="45" cy="45" r="2.5" fill="currentColor"/>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="eyebrow">PROGRAM SERVICES PORTAL</span>
+    <h1>Georgia Statewide Pretrial Diversion</h1>
+    <p class="lede">Collateral Assessment Review — Secure Payment Portal</p>
+    <div class="statute-chips">
+      <span class="chip">O.C.G.A. § 42-3-70</span>
+      <span class="chip">O.C.G.A. § 15-18-80</span>
+      <span class="chip">HB 310 (2015)</span>
+    </div>
+  </div>
+</section>
+
+<!-- Progress tracker -->
+<section class="tracker" aria-label="Case progress">
+  <div class="wrap">
+    <div class="tracker-labels">
+      <span class="step-name">Step 1 of 5: Intake Information</span>
+      <span class="pct">20% complete</span>
+    </div>
+    <div class="tracker-bar"><div class="tracker-fill"></div></div>
+    <div class="tracker-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    <div class="tracker-steps">
+      <span class="active">Intake<br>Information</span>
+      <span>Eligibility<br>Review</span>
+      <span>Collateral<br>Assessment</span>
+      <span>Orientation<br>Scheduling</span>
+      <span>Administrative<br>Release</span>
+    </div>
+  </div>
+</section>
+
+<!-- Program overview 
